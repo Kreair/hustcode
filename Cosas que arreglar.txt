@@ -1,7 +1,0 @@
-1 - Teminar de actualizar el codigo
-2 - Error al clickear el menu: Editor, deja de funcionar y cierra el programa
-3 - Mejorar la apariencia del Editor
-4 - Error en la ventana:  DeprecationWarning: sipPyTypeDict() is deprecated, the extension module should use sipPyTypeDictRef() instead
-5 - No funcionan los atajos, ejemplo: Ctrl + S
-
-Todo eso hay que arreglar por ahora pero lo hare el proximo sabado: 16/3/2024

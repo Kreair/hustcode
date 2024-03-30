@@ -16,7 +16,7 @@ if TYPE_CHECKING:
     from main import MainWindow
 
 
-# UPDATED EP 8
+#  D EP 8
 class FileManager(QTreeView):
     def __init__(self, tab_view, set_new_tab=None, main_window=None):
         super(FileManager, self).__init__(None)
@@ -124,7 +124,7 @@ class FileManager(QTreeView):
             pass
 
     def rename_file_with_index(self):
-        # UPDATED EP 8
+        #  D EP 8
         new_name = self.model.fileName(self.current_edit_index)
         if self.previous_rename_name == new_name:
             return
@@ -146,7 +146,7 @@ class FileManager(QTreeView):
                 break
 
     def action_rename(self, ix: QModelIndex):
-        # UPDATED EP 8
+        #  D EP 8
         self.edit(ix)
         self.previous_rename_name = self.model.fileName(ix)
         self.is_renaming = True
@@ -177,7 +177,7 @@ class FileManager(QTreeView):
                             )
 
     def action_new_file(self, ix: QModelIndex):
-        # UPDATED EP 9
+        #  D EP 9
         root_path = self.model.rootPath()
         if ix.column() != -1 and self.model.isDir(ix):
             self.expand(ix)
@@ -204,7 +204,7 @@ class FileManager(QTreeView):
         # edit that index
         self.edit(idx)
 
-    # UPDATED EP 9
+    #  D EP 9
     def action_open_in_file_manager(self, ix: QModelIndex):
         path = os.path.abspath(self.model.filePath(ix))
         is_dir = self.model.isDir(ix)
@@ -230,7 +230,7 @@ class FileManager(QTreeView):
 
     # item drop
     def dropEvent(self, e: QDropEvent) -> None:
-        # UPDATED EP 9
+        #  D EP 9
         """Drop event for tree view"""
         root_path = Path(self.model.rootPath())
         if e.mimeData().hasUrls():

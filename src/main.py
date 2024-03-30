@@ -57,7 +57,7 @@ class MainWindow(FramelessMainWindow):
         venv = None
         if len(self.envs) > 0:
             venv = self.envs[0]
-        # UPDATED EP 9
+        # Fixed
         editor = Editor(self, path=path, env=venv, file_type=file_type)
         return editor
 
@@ -359,7 +359,7 @@ class MainWindow(FramelessMainWindow):
         self.current_side_bar = widget
         self.current_side_bar.show()
 
-    # UPDATED EP 9
+    # Fixed
     def show_dialog(self, title, msg) -> int:
         dialog = QMessageBox(self)
         dialog.setFont(self.font())
@@ -373,7 +373,7 @@ class MainWindow(FramelessMainWindow):
         return dialog.exec_()
 
     def close_tab(self, index: int):
-        # UPDATED EP 9
+        # Fixed
         editor: Editor = self.tab_view.currentWidget()
         if editor.current_file_changed:
             dialog = self.show_dialog(
@@ -390,7 +390,7 @@ class MainWindow(FramelessMainWindow):
         if editor:
             self.current_file = editor.path
 
-    # UPDATED EP 9 
+    # Fixed 
     def set_up_status_bar(self):
         # Create a status bar
         stat = QStatusBar(self)
@@ -458,7 +458,7 @@ class MainWindow(FramelessMainWindow):
             t.copy()
 
     def set_new_tab(self, path: Path, is_new_file=False):
-        # UPDATED EP 9
+        # Fixed
         if not is_new_file and self.is_binary(path):
             self.statusBar().showMessage("Cannot Open Binary File", 2000)
             return
@@ -483,7 +483,7 @@ class MainWindow(FramelessMainWindow):
 
         # check if file is already open
         for i in range(self.tab_view.count()):
-            # UPDATED EP 9
+            # Fixed
             if self.tab_view.tabText(i) == path.name or self.tab_view.tabText(i) == "*"+path.name: # check for unsaved state too
                 # set the active tab to that
                 self.tab_view.setCurrentIndex(i)
@@ -493,7 +493,7 @@ class MainWindow(FramelessMainWindow):
         self.tab_view.addTab(text_edit, path.name)
         text_edit.setText(path.read_text(encoding="utf-8"))
         self.setWindowTitle(f"{path.name} - {self.app_name}")
-        self.statusBar().showMessage(f"Abierto {path.name}", 2000)
+        self.statusBar().showMessage(f"Se ha abierto: {path.name}", 2000)
         # set the active tab to that
         self.tab_view.setCurrentIndex(self.tab_view.count() - 1)
         self.current_file = path
@@ -515,7 +515,7 @@ class MainWindow(FramelessMainWindow):
         text_edit = self.tab_view.currentWidget()
         self.current_file.write_text(text_edit.text())
         self.statusBar().showMessage(f"Guardado {self.current_file.name}", 2000)
-        # UPDATED EP 9
+        # Fixed
         text_edit.current_file_changed = False
 
     def save_as(self):
@@ -535,7 +535,7 @@ class MainWindow(FramelessMainWindow):
         self.tab_view.setTabText(self.tab_view.currentIndex(), path.name)
         self.statusBar().showMessage(f"Saved {path.name}", 2000)
 
-        # UPDATED EP 9
+        # Fixed
         editor: Editor = self.tab_view.currentWidget()
         editor.current_file_changed = False
 

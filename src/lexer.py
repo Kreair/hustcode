@@ -237,7 +237,7 @@ class PyCustomLexer(NeutronLexer):
         string_flag = False
         comment_flag = False
 
-        # UPDATED EP 9
+        #  D EP 9
         if start > 0:
             previous_style_nr = self.editor.SendScintilla(self.editor.SCI_GETSTYLEAT, start - 1)
             if previous_style_nr == self.COMMENTS:
@@ -251,7 +251,7 @@ class PyCustomLexer(NeutronLexer):
             tok: str = curr_token[0]
             tok_len: int = curr_token[1]
 
-            # UPDATED EP 9
+            #  D EP 9
             if comment_flag:
                 self.setStyling(tok_len, self.COMMENTS)
                 if tok.endswith("\n") or tok.startswith('\n'):
@@ -309,7 +309,7 @@ class PyCustomLexer(NeutronLexer):
                 string_flag = True
                 continue
             elif tok == "#":
-                # UPDATED EP 9
+                #  D EP 9
                 self.setStyling(tok_len, self.COMMENTS)
                 comment_flag = True
             elif tok in self.builtin_names or tok in [

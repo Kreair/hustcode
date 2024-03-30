@@ -10,11 +10,14 @@ class Main:
     def name(self, name):
         print("sette")
         self._name = name
-
-        
+
+
+        
+
 m = Main()
 
-m.name = "Hiroshi"
+m.name = "Namix"
+
 print(m.name)
 
 

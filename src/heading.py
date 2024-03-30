@@ -1,8 +1,7 @@
 from PyQt5.QtWidgets import (
    QFrame, QHBoxLayout, QLabel, QPushButton, QWidget, QMenu, QAction
 )
-
-from PyQt5.QtCore import Qt, QEvent, QSize
+from PyQt5.QtCore import Qt, QEvent, QSize, QPoint
 from PyQt5.QtGui import QPixmap, QIcon, QImage
 
 class MenuItems(QWidget):
@@ -16,23 +15,22 @@ class MenuItems(QWidget):
         self.lay.setContentsMargins(0, 0, 0, 0)
         self.lay.setSpacing(3)
 
-
         self.file_label = self.get_lbl("Archivo")
-        self.file_label.mousePressEvent = self.mpEvent
-        edit_label = self.get_lbl("Editar")
+        self.file_label.mousePressEvent = lambda event: self.mpEvent(event, self.file_label)
+
+        self.edit_label = self.get_lbl("Editar")
+        self.edit_label.mousePressEvent = lambda event: self.mpEvent(event, self.edit_label)
 
         self.lay.addWidget(self.file_label)
-        self.lay.addWidget(edit_label)
+        self.lay.addWidget(self.edit_label)
 
-    def mpEvent(self, event):
+    def mpEvent(self, event, label):
         if event.button() == Qt.LeftButton:
-            pos = self.file_label.pos()
-            pos.setY(pos.y() + 10)
+            pos = label.mapToGlobal(QPoint(0, label.height()))
             self.show_file_menu(pos)
         else:
             super().mousePressEvent(event)
-            
-            
+
     def show_file_menu(self, pos):
         context_menu = QMenu(self)
 
@@ -51,6 +49,21 @@ class MenuItems(QWidget):
         save_as.triggered.connect(self.main_window.save_as)
         context_menu.addAction(save_as)
 
+        context_menu.setStyleSheet("""
+        QMenu {
+            background-color: #282c34;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+        QMenu::item {
+            padding: 8px 32px;
+        }
+        QMenu::item:selected {
+            background-color: #3E4451;
+        }
+        """)
+
         context_menu.exec_(pos)
 
     def get_lbl(self, txt):
@@ -68,7 +81,6 @@ class MenuItems(QWidget):
            background: rgba(255, 255, 255, 0.1);
         }
         """)
-        lbl.mousePressEvent = lambda e: self.main_window.menu_clicked(e, txt)
         return lbl
 
 
@@ -87,7 +99,6 @@ class Heading(QFrame):
         self.title_lbl = QLabel()
         self.title_lbl.setStyleSheet(f"font-family: Arial; font-size: 16px; font-weight: 500; color: white; margin-left: 10px; border: none;") 
         self.title_lbl.setPixmap(logo)
-        # main_layout.addWidget(self.title_lbl, alignment=Qt.AlignmentFlag.AlignLeft) 
 
         menu = MenuItems(self.main_window)
         main_layout.addWidget(menu, alignment=Qt.AlignmentFlag.AlignLeft) 

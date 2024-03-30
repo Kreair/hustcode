@@ -17,7 +17,7 @@ class Editor(QsciScintilla):
 
     def __init__(self, main_window, parent=None, path: Path = None, file_type=".py", env=None):
         super(Editor, self).__init__(parent)
-        # UPDATED EP 9
+        # Fixed
         self.first_launch = True # variable to keep track of if it's first launch
         self.main_window: MainWindow = main_window
 
@@ -29,7 +29,7 @@ class Editor(QsciScintilla):
         self._current_file_changed = False        
         # EDITOR
         self.cursorPositionChanged.connect(self.cursorPositionChangedCustom)
-        # UPDATED EP 9
+        # Fixed
         self.textChanged.connect(self.textChangedCustom)
  
         # encoding       
@@ -159,12 +159,12 @@ class Editor(QsciScintilla):
 
         
 
-    # UPDATED EP 9
+    # Fixed
     @property
     def current_file_changed(self):
         return self._current_file_changed
     
-    # UPDATED EP 9
+    # Fixed
     @current_file_changed.setter
     def current_file_changed(self, value: bool):
         curr_indx = self.main_window.tab_view.currentIndex()
@@ -209,7 +209,7 @@ class Editor(QsciScintilla):
                 self.autoCompleteFromAPIs()
                 return
 
-        # UPDATED EP 9
+        # Fixed
         if e.modifiers() == Qt.ControlModifier and e.key() == Qt.Key_X: # CUT SHORTCUT
             if not self.hasSelectedText():
                 line, index = self.getCursorPosition()
@@ -217,7 +217,7 @@ class Editor(QsciScintilla):
                 self.cut()
                 return 
             
-        # UPDATED EP 9
+        # Fixed
         if e.modifiers() == Qt.ControlModifier and e.text() == "/": # COMMENT SHORTCUT
             if self.hasSelectedText():
                 start, startl, end, endl = self.getSelection()
@@ -231,6 +231,21 @@ class Editor(QsciScintilla):
                 self.setSelection(-1, -1, -1, -1) # reset selection
             
             return 
+        
+        # Keyboard shortcut for New (Ctrl+N)
+        if e.modifiers() == Qt.ControlModifier and e.key() == Qt.Key_N:
+            self.main_window.new_file()
+            return
+
+        # Keyboard shortcut for Save (Ctrl+S)
+        if e.modifiers() == Qt.ControlModifier and e.key() == Qt.Key_S:
+            self.main_window.save_file()
+            return
+
+        # Keyboard shortcut for Save as (Ctrl+Shift+S)
+        if e.modifiers() == (Qt.ControlModifier | Qt.ShiftModifier) and e.key() == Qt.Key_S:
+            self.main_window.save_as()
+            return
 
         return super().keyPressEvent(e)
 
@@ -241,7 +256,7 @@ class Editor(QsciScintilla):
     def loaded_autocomp(self):
         pass
 
-    # UPDATED EP 9
+    # Fixed
     def textChangedCustom(self) -> None:
         if not self.current_file_changed and not self.first_launch:
             self.current_file_changed = True

@@ -1,4 +1,4 @@
-PyQt5-Frameless-Window==0.3.8
-jedi==0.18.1
-PyQt5==5.15.7
-QScintilla==2.13.3
+PyQt5-Frameless-Window==0.3.9
+jedi==0.19.1
+PyQt5==5.15.10
+QScintilla==2.14.1
