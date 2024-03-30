@@ -16,9 +16,9 @@ HustCode es un editor de código simple y elegante diseñado para mejorar tu exp
 
 ### Capturas de pantalla
 
-![Captura de pantalla 1](screenshots/sc1.png)
+![Captura de pantalla 1](screenshots/sc2.png)
 
-![Captura de pantalla 2](screenshots/sc2.png)
+![Captura de pantalla 2](screenshots/sc1.png)
 
 ### Instalación
 
