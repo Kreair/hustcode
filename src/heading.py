@@ -16,38 +16,103 @@ class MenuItems(QWidget):
         self.lay.setSpacing(3)
 
         self.file_label = self.get_lbl("Archivo")
-        self.file_label.mousePressEvent = lambda event: self.mpEvent(event, self.file_label)
+        self.file_label.mousePressEvent = lambda event: self.mpEvent(event, "Archivo")
 
         self.edit_label = self.get_lbl("Editar")
-        self.edit_label.mousePressEvent = lambda event: self.mpEvent(event, self.edit_label)
+        self.edit_label.mousePressEvent = lambda event: self.mpEvent(event, "Editar")
 
         self.lay.addWidget(self.file_label)
         self.lay.addWidget(self.edit_label)
 
-    def mpEvent(self, event, label):
+    def mpEvent(self, event, label_text):
         if event.button() == Qt.LeftButton:
-            pos = label.mapToGlobal(QPoint(0, label.height()))
-            self.show_file_menu(pos)
+            if label_text == "Archivo":
+                pos = self.file_label.mapToGlobal(QPoint(0, self.file_label.height()))
+                self.file_menu(pos)
+            elif label_text == "Editar":
+                pos = self.edit_label.mapToGlobal(QPoint(0, self.edit_label.height()))
+                self.edit_menu(pos)
         else:
             super().mousePressEvent(event)
 
-    def show_file_menu(self, pos):
+    def file_menu(self, pos):
         context_menu = QMenu(self)
 
         new_file = QAction("Nuevo", self)
         new_file.setShortcut("Ctrl+N")
-        new_file.triggered.connect(self.main_window.new_file)
+        new_file.triggered.connect(self.new_file)
         context_menu.addAction(new_file)
 
         save_file = QAction("Guardar", self)
         save_file.setShortcut("Ctrl+S")
-        save_file.triggered.connect(self.main_window.save_file)
+        save_file.triggered.connect(self.save_file)
         context_menu.addAction(save_file)
 
         save_as = QAction("Guardar como...", self)
         save_as.setShortcut("Ctrl+Shift+S")
-        save_as.triggered.connect(self.main_window.save_as)
+        save_as.triggered.connect(self.save_as)
         context_menu.addAction(save_as)
+
+        open_file = QAction("Abrir archivo", self)
+        open_file.setShortcut("Ctrl+O")
+        open_file.triggered.connect(self.open_file_dlg)
+        context_menu.addAction(open_file)
+
+        open_folder_action = QAction("Abrir carpeta", self)
+        open_folder_action.setShortcut("Ctrl+K")
+        open_folder_action.triggered.connect(self.open_folder)
+        context_menu.addAction(open_folder_action)
+
+
+        context_menu.setStyleSheet("""
+        QMenu {
+            background-color: #282c34;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 4px;
+        }
+        QMenu::item {
+            padding: 8px 32px;
+        }
+        QMenu::item:selected {
+            background-color: #3E4451;
+        }
+        """)
+
+        context_menu.exec_(pos)
+
+    def edit_menu(self, pos):
+        context_menu = QMenu(self)
+
+        comment = QAction("Comentar línea actual", self)
+        comment.setShortcut("Ctrl+/")
+        comment.triggered.connect(self.main_window.comment)
+        context_menu.addAction(comment)
+
+        undo = QAction("Deshacer", self)
+        undo.setShortcut("Ctrl+Z")
+        undo.triggered.connect(self.main_window.undo)
+        context_menu.addAction(undo)
+
+        redo = QAction("Rehacer", self)
+        redo.setShortcut("Ctrl+Y")
+        redo.triggered.connect(self.main_window.redo)
+        context_menu.addAction(redo)
+
+        copy_action = QAction("Copiar", self)
+        copy_action.setShortcut("Ctrl+C")
+        copy_action.triggered.connect(self.main_window.copy)
+        context_menu.addAction(copy_action)
+
+        paste = QAction("Pegar", self)
+        paste.setShortcut("Ctrl+V")
+        paste.triggered.connect(self.main_window.paste)
+        context_menu.addAction(paste)
+
+        cut_action = QAction("Cortar", self)
+        cut_action.setShortcut("Ctrl+X")
+        cut_action.triggered.connect(self.main_window.cut)
+        context_menu.addAction(cut_action)
 
         context_menu.setStyleSheet("""
         QMenu {
@@ -82,8 +147,6 @@ class MenuItems(QWidget):
         }
         """)
         return lbl
-
-
 
 class Heading(QFrame):
 

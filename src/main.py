@@ -443,7 +443,33 @@ class MainWindow(FramelessMainWindow):
         copy_action.setShortcut("Ctrl+C")
         copy_action.triggered.connect(self.copy)
 
+        comment = QAction("Comentar línea actual", self)
+        comment.setShortcut("Ctrl+/")
+        comment.triggered.connect(self.comment)
+        
+        undo = QAction("Deshacer", self)
+        undo.setShortcut("Ctrl+Z")
+        undo.triggered.connect(self.undo)
+
+        redo = QAction("Rehacer", self)
+        redo.setShortcut("Ctrl+Y")
+        redo.triggered.connect(self.redo)
+
+        paste = QAction("Pegar", self)
+        paste.setShortcut("Ctrl+V")
+        paste.triggered.connect(self.paste)
+        
+        cut_action = QAction("Cortar", self)
+        cut_action.setShortcut("Ctrl+X")
+        cut_action.triggered.connect(self.cut)
+
         edit_menu.addAction(copy_action)
+        edit_menu.addAction(paste)
+        edit_menu.addAction(redo)
+        edit_menu.addAction(undo)
+        edit_menu.addAction(comment)
+        edit_menu.addAction(cut_action)
+
 
     def is_binary(self, path):
         """
@@ -456,6 +482,16 @@ class MainWindow(FramelessMainWindow):
         t = self.tab_view.currentWidget()
         if t is not None:
             t.copy()
+    def cut(self):
+        pass
+    def redo(self):
+        pass
+    def undo(self):
+        pass
+    def comment(self):
+        pass
+    def paste(self):
+        pass
 
     def set_new_tab(self, path: Path, is_new_file=False):
         # Fixed
