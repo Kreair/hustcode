@@ -40,27 +40,27 @@ class MenuItems(QWidget):
 
         new_file = QAction("Nuevo", self)
         new_file.setShortcut("Ctrl+N")
-        new_file.triggered.connect(self.new_file)
+        new_file.triggered.connect(self.main_window.new_file)
         context_menu.addAction(new_file)
 
         save_file = QAction("Guardar", self)
         save_file.setShortcut("Ctrl+S")
-        save_file.triggered.connect(self.save_file)
+        save_file.triggered.connect(self.main_window.save_file)
         context_menu.addAction(save_file)
 
         save_as = QAction("Guardar como...", self)
         save_as.setShortcut("Ctrl+Shift+S")
-        save_as.triggered.connect(self.save_as)
+        save_as.triggered.connect(self.main_window.save_as)
         context_menu.addAction(save_as)
 
         open_file = QAction("Abrir archivo", self)
         open_file.setShortcut("Ctrl+O")
-        open_file.triggered.connect(self.open_file_dlg)
+        open_file.triggered.connect(self.main_window.open_file_dlg)
         context_menu.addAction(open_file)
 
         open_folder_action = QAction("Abrir carpeta", self)
         open_folder_action.setShortcut("Ctrl+K")
-        open_folder_action.triggered.connect(self.open_folder)
+        open_folder_action.triggered.connect(self.main_window.open_folder)
         context_menu.addAction(open_folder_action)
 
 

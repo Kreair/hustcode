@@ -407,7 +407,6 @@ class MainWindow(FramelessMainWindow):
 
         # File menu
         file_menu = menu_bar.addMenu("Archivo")
-
         new_file = QAction("Nuevo", self)
         new_file.setShortcut("Ctrl+N")
         new_file.triggered.connect(self.new_file)
