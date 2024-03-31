@@ -1,5 +1,5 @@
 [project]
-name = "qcodedit"
+name = "HustCode"
 version = "0.1.0"
 description = "A Code Editor Created using PyQt5"
 main_script = "./src/main.py"
