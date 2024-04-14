@@ -1,6 +1,6 @@
-## HustCode
+## HustCode 
 
-![Captura de pantalla 3](screenshots/HustCode1.png)
+                            (screenshots/HustCode1.png)
 
 
 HustCode es un editor de código simple y elegante diseñado para mejorar tu experiencia de programación. Con una interfaz intuitiva y características útiles, HustCode está diseñado para ayudarte a escribir código de manera más eficiente y productiva.
