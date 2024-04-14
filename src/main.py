@@ -24,7 +24,6 @@ class MainWindow(FramelessMainWindow):
         self.current_file = None
         self.current_side_bar = None
         self.envs = list(jedi.find_virtualenvs())
-        self.isDarkTheme = True
         self.init_ui()
 		
     @property
@@ -52,7 +51,6 @@ class MainWindow(FramelessMainWindow):
         self.set_up_status_bar()
 
         self.show()
-        self.set_up_menu()
 
     def get_editor(self, path: Path = None, file_type=".py") -> QsciScintilla:
         """Create a New Editor"""
@@ -68,16 +66,6 @@ class MainWindow(FramelessMainWindow):
 
     def set_cursor_arrow(self, e) -> None:
         self.setCursor(Qt.ArrowCursor)
-        
-    def toggle_theme(self):
-        if self.isDarkTheme:
-        # Cambiar a modo claro
-            self.setStyleSheet(open("./src/styles/light_style.qss", "r").read())
-            self.isDarkTheme = False
-        else:
-        # Cambiar a modo oscuro
-            self.setStyleSheet(open("./src/styles/style.qss", "r").read())
-            self.isDarkTheme = True
 
     def get_sidebar_button(self, img_path: str, widget) -> QLabel:
         label = QLabel()
@@ -480,14 +468,6 @@ class MainWindow(FramelessMainWindow):
         edit_menu.addAction(undo)
         edit_menu.addAction(comment)
         edit_menu.addAction(cut_action)
-        
-        # view menu
-        view_menu = menu_bar.addMenu("Ver")
-        toggle_theme_action = QAction("Alternar Tema", self)
-        toggle_theme_action.setShortcut("Ctrl+T")
-        toggle_theme_action.triggered.connect(self.toggle_theme)
-        view_menu.addAction(toggle_theme_action)
-        self.menuBar().show()
 
 
     def is_binary(self, path):
