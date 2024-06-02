@@ -34,3 +34,6 @@ Si deseas contribuir al desarrollo de HustCode, ¡nos encantaría recibir tu ayu
 - Enviando parches y solicitudes de extracción
 
 #### ¡Gracias por usar HustCode y esperamos que te sea útil en tus proyectos de programación!
+
+#### Discord server: https://discord.gg/9YVu4ur4 
+- En le server puedes ayudar a completar y terminal el editor 👌
